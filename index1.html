@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriYou | Personalized Meal Discovery</title>
+    <style>
+        /* Clean, documentary-style minimalism */
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #fafafa;
+            color: #222;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 5rem 2rem 3rem;
+            background-color: #ffffff;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            letter-spacing: -0.5px;
+            color: #111;
+        }
+
+        p.subtitle {
+            color: #555;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 1rem auto 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .instructions {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            color: #444;
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .food-card {
+            background: #ffffff;
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #eaeaea;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease;
+        }
+
+        .food-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .food-name {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        button {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        /* Default Button States */
+        .btn-like { background-color: #f0f0f0; color: #444; }
+        .btn-dislike { background-color: #f0f0f0; color: #444; }
+
+        /* Active Button States */
+        .btn-like.active { background-color: #10b981; color: white; }
+        .btn-dislike.active { background-color: #ef4444; color: white; }
+
+        .action-section {
+            text-align: center;
+            margin-top: 4rem;
+            padding-bottom: 4rem;
+        }
+
+        .submit-btn {
+            background-color: #111;
+            color: #fff;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            background-color: #333;
+        }
+        
+        #result-message {
+            margin-top: 1.5rem;
+            font-weight: bold;
+            color: #10b981;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>NutriYou</h1>
+        <p class="subtitle">Tell us what you crave. We'll tell you what to eat next.</p>
+    </header>
+
+    <div class="container">
+        <p class="instructions">Rate these classic staples to build your taste profile:</p>
+
+        <div class="food-grid">
+            <!-- Food Item 1 -->
+            <div class="food-card">
+                <div class="food-name">Smoky Jollof Rice</div>
+                <div class="btn-group">
+                    <button class="btn-like" onclick="togglePreference(this, 'like')">👍 Like</button>
+                    <button class="btn-dislike" onclick="togglePreference(this, 'dislike')">👎 Dislike</button>
+                </div>
+            </div>
+
+            <!-- Food Item 2 -->
+            <div class="food-card">
+                <div class="food-name">Spicy Beef Suya</div>
+                <div class="btn-group">
+                    <button class="btn-like" onclick="togglePreference(this, 'like')">👍 Like</button>
+                    <button class="btn-dislike" onclick="togglePreference(this, 'dislike')">👎 Dislike</button>
+                </div>
+            </div>
+
+            <!-- Food Item 3 -->
+            <div class="food-card">
+                <div class="food-name">Pounded Yam & Egusi</div>
+                <div class="btn-group">
+                    <button class="btn-like" onclick="togglePreference(this, 'like')">👍 Like</button>
+                    <button class="btn-dislike" onclick="togglePreference(this, 'dislike')">👎 Dislike</button>
+                </div>
+            </div>
+
+            <!-- Food Item 4 -->
+            <div class="food-card">
+                <div class="food-name">Ewa Agoyin (Beans)</div>
+                <div class="btn-group">
+                    <button class="btn-like" onclick="togglePreference(this, 'like')">👍 Like</button>
+                    <button class="btn-dislike" onclick="togglePreference(this, 'dislike')">👎 Dislike</button>
+                </div>
+            </div>
+            
+            <!-- Food Item 5 -->
+            <div class="food-card">
+                <div class="food-name">Chilled Zobo Drink</div>
+                <div class="btn-group">
+                    <button class="btn-like" onclick="togglePreference(this, 'like')">👍 Like</button>
+                    <button class="btn-dislike" onclick="togglePreference(this, 'dislike')">👎 Dislike</button>
+                </div>
+            </div>
+
+            <!-- Food Item 6 -->
+            <div class="food-card">
+                <div class="food-name">Fried Plantain (Dodo)</div>
+                <div class="btn-group">
+                    <button class="btn-like" onclick="togglePreference(this, 'like')">👍 Like</button>
+                    <button class="btn-dislike" onclick="togglePreference(this, 'dislike')">👎 Dislike</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-section">
+            <button class="submit-btn" onclick="showRecommendation()">Generate My Menu</button>
+            <p id="result-message">Analyzing your profile... Recommended: Seafood Okra!</p>
+        </div>
+    </div>
+
+    <script>
+        // Simple logic to toggle the visual state of the buttons
+        function togglePreference(clickedBtn, type) {
+            const btnGroup = clickedBtn.parentElement;
+            const likeBtn = btnGroup.querySelector('.btn-like');
+            const dislikeBtn = btnGroup.querySelector('.btn-dislike');
+
+            if (type === 'like') {
+                clickedBtn.classList.toggle('active');
+                dislikeBtn.classList.remove('active'); // Ensure both can't be active
+            } else {
+                clickedBtn.classList.toggle('active');
+                likeBtn.classList.remove('active');
+            }
+        }
+
+        // Mock function to simulate the engine working
+        function showRecommendation() {
+            const msg = document.getElementById('result-message');
+            msg.style.display = 'block';
+            
+            // In the future, this is where our Python backend or advanced JS would step in!
+        }
+    </script>
+</body>
+</html>
